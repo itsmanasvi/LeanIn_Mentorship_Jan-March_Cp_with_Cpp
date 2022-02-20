@@ -1,0 +1,110 @@
+#include <iostream>
+using namespace std;
+#define max 6
+
+class queue
+{
+    int n, stk[max], front, rear;
+    public:
+    void init()
+    {
+        front=-1;
+        rear=-1;
+    }
+    bool isEmpty(){
+        if(front==-1 && rear ==-1)
+            return true;
+        else
+            return false;
+    }
+    bool isFull(){
+        if(rear==max-1)
+            return true;
+        else
+            return false;
+    }    
+    void push(int no)
+    {
+        if(isFull())
+        {
+            cout<<"\nQueue OVERFLOW"<<"\n";
+            return;
+        }
+        else if(isEmpty())
+        {
+            front=0;rear=0;
+            stk[rear]=no;
+            cout<<"\nElement pushed is "<<stk[rear]<<"\n";
+        }
+        else{
+            stk[++rear]=no;
+            cout<<"\nElement pushed is "<<stk[rear]<<"\n";
+        }
+    }
+    int pop()
+    {
+        int x;
+        if(isEmpty())
+        {
+            cout<<"\nQueue UNDERFLOW \n";
+            return 0;
+        }
+        else if(front==rear)
+        {
+            x=stk[front];
+            front=rear=-1;
+        }
+        else{
+            x=stk[front];
+            front++;
+        }
+        return x;
+    }
+    void peek()
+    {
+        cout<<"\nPeek element is: "<<stk[front]<<"\n";
+    }
+    void display()
+    {
+        if(front=-1)
+       {
+            cout<<"\nElements of the stack: \n";
+            for(int i=rear; i<=front; i++)
+            {
+                cout<<stk[i]<<"\n";
+            }
+       }
+       else
+        cout<<"\nQueue Empty\n";
+    }
+};
+
+int main()
+{
+    
+    system("CLS");
+    queue q;
+    q.init();
+    int ch, ele, ans=1;
+    while(ans==1)
+    {
+        cout<<"\nEnter your choice:\n1.Push element\n2.Pop element\n3.Peek Element\n4.Display\n5.Exit\n";
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:{cout<<"\nEnter the element you want to push:";
+                   cin>>ele;
+                    q.push(ele);break;}
+            case 2:{ele=q.pop();
+                    if(ele!=0)
+                        cout<<"\nElement popped is "<<ele<<"\n";
+                    break;}
+            case 3:q.peek();break;
+            case 4:q.display();break;
+            case 5:exit(0);
+        }
+        cout<<"\nDo you want to continue? Press 1 for yes and 0 for no ";
+        cin>>ans;
+    }
+    return 0;
+}
