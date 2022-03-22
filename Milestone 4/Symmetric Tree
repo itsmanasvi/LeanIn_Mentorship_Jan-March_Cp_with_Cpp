@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {   
+        bool flag= traverse(root->left, root->right);
+        return flag;
+    }
+    
+    bool traverse(TreeNode* lSub, TreeNode* rSub){
+        
+        if(lSub == NULL && rSub ==NULL){
+            return true;
+        }
+        if((lSub == NULL && rSub!=NULL) || (lSub != NULL && rSub==NULL) || (lSub->val != rSub->val)){
+            return false;
+        } 
+        bool lflag = traverse(lSub->left, rSub->right);
+        bool rflag = traverse(lSub->right, rSub->left);        
+        return lflag && rflag;
+    }
+};
