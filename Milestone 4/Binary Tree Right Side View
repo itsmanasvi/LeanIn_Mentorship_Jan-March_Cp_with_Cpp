@@ -1,0 +1,47 @@
+class Solution {
+    
+    int height(TreeNode *root){
+        if(root==NULL){
+            return 0;
+        }
+        int op1=0,op2=0;
+        if(root->left!=NULL){
+            op1=height(root->left);
+        }
+        if(root->right!=NULL){
+            op2=height(root->right);
+        }
+        
+        return max(op1,op2)+1;
+    }
+    vector<int> ans;
+    void levelorder(TreeNode* root,int curr,int k,int &flag){
+        if(root==NULL){
+            return;
+        }
+        
+        if(curr==k and flag==0){
+            ans.push_back(root->val);
+            flag=1;
+            return;
+        }
+        
+        levelorder(root->right,curr+1,k,flag);
+        levelorder(root->left,curr+1,k,flag);
+    }
+    
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        int h=height(root);
+        ans.clear();
+        for(int i=1;i<=h;i++){
+            int flag=0;
+            levelorder(root,1,i,flag);
+        }
+        
+        
+        return ans;
+        
+        
+    }
+};
